@@ -10,47 +10,45 @@ public class CreateAccountTests extends TestBase{
     public void registerNewUserPositiveTest(){
         //click on Register link in header
 
-        driver.findElement(By.xpath("//a[@href='/register']")).click();
+        int i = (int) ((System.currentTimeMillis()/1000)%3600);
+
+        click(By.xpath("//a[@href='/register']"));
 
         //enter gender
 
         //enter First name
-        driver.findElement(By.xpath("//*[@id='FirstName']")).click();
-        driver.findElement(By.xpath("//*[@id='FirstName']")).clear();
-        driver.findElement(By.xpath("//*[@id='FirstName']")).sendKeys("Ivan");
+        type(By.xpath("//*[@id='FirstName']"), "Ivan");
 
         //enter Last name:
-        driver.findElement(By.xpath("//*[@id='LastName']")).click();
-        driver.findElement(By.xpath("//*[@id='LastName']")).clear();
-        driver.findElement(By.xpath("//*[@id='LastName']")).sendKeys("Ivanov");
+        type(By.xpath("//*[@id='LastName']"), "Ivanov");
 
         //enter Email:
-        driver.findElement(By.xpath("//*[@id='Email']")).click();
-        driver.findElement(By.xpath("//*[@id='Email']")).clear();
-        driver.findElement(By.xpath("//*[@id='Email']")).sendKeys("ivanivanov405@gmail.com");
+        type(By.xpath("//*[@id='Email']"), "ivanivanov406" + i + "@gmail.com");
 
         //enter Password:
-        driver.findElement(By.xpath("//*[@id='Password']")).click();
-        driver.findElement(By.xpath("//*[@id='Password']")).clear();
-        driver.findElement(By.xpath("//*[@id='Password']")).sendKeys("Ivanov@12345");
+        type(By.xpath("//*[@id='Password']"), "Ivanov@12345");
 
         //enter Confirm password:
-        driver.findElement(By.xpath("//*[@id='ConfirmPassword']")).click();
-        driver.findElement(By.xpath("//*[@id='ConfirmPassword']")).clear();
-        driver.findElement(By.xpath("//*[@id='ConfirmPassword']")).sendKeys("Ivanov@12345");
+        type(By.xpath("//*[@id='ConfirmPassword']"), "Ivanov@12345");
 
         //click on register button
-        driver.findElement(By.xpath("//*[@id='register-button']")).click();
+        click(By.xpath("//*[@id='register-button']"));
 
 
         //assert logout link is present
         Assert.assertTrue(isElementPresent(By.xpath("//a[@href='/logout']")));
-
-
-
-
-
-
     }
+
+    public void type(By locator, String text) {
+        click(locator);
+        driver.findElement(locator).clear();
+        driver.findElement(locator).sendKeys(text);
+    }
+    public void click(By locator) {
+        driver.findElement(locator).click();
+    }
+
+
+
 
 }
