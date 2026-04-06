@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class CreateAccountTests extends TestBase{
+
     // создаем позитивный тест с регистрацией нового пользователя
     @Test
     public void registerNewUserPositiveTest(){
@@ -38,17 +39,6 @@ public class CreateAccountTests extends TestBase{
         //assert logout link is present
         Assert.assertTrue(isElementPresent(By.xpath("//a[@href='/logout']")));
     }
-
-    public void type(By locator, String text) {
-        click(locator);
-        driver.findElement(locator).clear();
-        driver.findElement(locator).sendKeys(text);
-    }
-    public void click(By locator) {
-        driver.findElement(locator).click();
-    }
-
-
 
 
 }
