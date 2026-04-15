@@ -1,5 +1,6 @@
 package com.webshop.tests;
 
+import com.webshop.core.TestBase;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,18 +12,18 @@ public class LoginTests extends TestBase {
 
         //int i = (int) ((System.currentTimeMillis()/1000)%3600);
 
-        click(By.xpath("//a[@href='/login']"));
+        app.getUser().click(By.xpath("//a[@href='/login']"));
 
         //enter Email:
-        type(By.xpath("//*[@id='Email']"), "irynazinkovych@gmail.com");
+        app.getUser().type(By.xpath("//*[@id='Email']"), "irynazinkovych@gmail.com");
         //enter Password:
-        type(By.xpath("//*[@id='Password']"), "Zink@12345");
+        app.getUser().type(By.xpath("//*[@id='Password']"), "Zink@12345");
 
         //click on login button
-        click(By.cssSelector(".button-1.login-button"));
+        app.getUser().click(By.cssSelector(".button-1.login-button"));
 
 
         //assert logout link is present
-        Assert.assertTrue(isElementPresent(By.xpath("//a[@href='/logout']")));
+        Assert.assertTrue(app.getUser().isElementPresent(By.xpath("//a[@href='/logout']")));
     }
 }

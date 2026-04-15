@@ -1,14 +1,13 @@
 package com.webshop.tests;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import com.webshop.core.TestBase;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
-import java.time.Duration;
-
-public class HomePageWebShopTests {
-
-
+public class HomePageWebShopTests extends TestBase {
+    @Test
+    public void isElementRegisterPresentTest() {
+        //System.out.println("Register is " + isElementRegisterPresent());
+        Assert.assertTrue(app.getUser().isElementRegisterPresent());
+    }
 }
