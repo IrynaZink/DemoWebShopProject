@@ -1,35 +1,42 @@
 package com.webshop.core;
 
 import come.phonebook.core.ApplicationManager;
+import org.openqa.selenium.remote.Browser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.ITest;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
+
 public class TestBase {
 
-    protected static ApplicationManager app = new ApplicationManager();
+    protected static ApplicationManager app = new ApplicationManager(System.getProperty("browser", Browser.CHROME.browserName()));
+    Logger logger = LoggerFactory.getLogger(TestBase.class);
 
     @BeforeMethod
-    public void setUp(){
+    public void setUp(Method method, Object[] p){
         app.init();
+        logger.info("Start test {} with data: {}", method.getName(), Arrays.asList(p));
 
     }
 
     @AfterMethod(enabled = true)
-    public void tearDown(){
+    public void tearDown(ITestResult result){
+        if(result.isSuccess()) {
+            logger.info("PASSED: {}", result.getMethod().getMethodName());
+        } else {
+            logger.error("FAILD: {}. Screenshot - > {}", result.getMethod().getMethodName(),
+                    app.getUser().takeScreenshot());
+        }
+        logger.info("Stop test");
+        logger.info("*****************************");
         app.stop();
     }
 
 
 }
-//Создайте, пожалуйста, в домашнем проекте структуру Value Object Model
-//
-//Создайте методы init() и stop()
-//Создайте класс ApplicationManager
-//Переместите из TestBase Webdriver и все методы, кроме setUp() и tearDown()
-//Создайте классы родительский BaseHelper, его наследники UserHelper, ItemHelper и другие, если это необходимо
-//Переместите из ApplicationManager универсальные методы в BaseHelper, адресные в те хелперы, к которым они имеют отношение
-//В ApplicationManager объявите и инициализируйте UserHelper, ItemHelper и другие, кроме BaseHelper, создайте для них геттеры
-//В хэлперах создайте конструкторы
-//Почините тестовые методы, подтянув геттеры
-//Создайте структуру Value Object Model в виде папок в main(core, fw), в test(core, tests)
-//Проверьте работоспособность проекта, запустив весь пакет
+

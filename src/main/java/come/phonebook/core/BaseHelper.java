@@ -1,8 +1,15 @@
 package come.phonebook.core;
 
+import com.google.common.io.Files;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+
+import java.io.File;
+import java.io.IOException;
+
 
 public class BaseHelper {
     protected WebDriver driver;
@@ -12,13 +19,22 @@ public class BaseHelper {
     }
 
     public void isElementRegisterPresentTest(){
-        //System.out.println("Register is " + isElementRegisterPresent());
+
         Assert.assertTrue(isElementRegisterPresent());
 
     }
-
     public  boolean isElementRegisterPresent(){
         return driver.findElements(By.xpath("//*[@href='/register']")).size()>0;
+    }
+    public String takeScreenshot() {
+        File tmp = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        File screen = new File("screenshots/screen-" + System.currentTimeMillis() + ".png");
+        try {
+            Files.copy(tmp, screen);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return screen.getAbsolutePath();
     }
 
     public boolean isElementPresent(By locator){
