@@ -27,7 +27,7 @@ test {
 //old
 task qa(type:Test){
     useTestNG(){
-        suites'src/test/resources/testng.xml'
+        suites'src/test/resources/regression.xml'
     }
     if (project.hasProperty("browser")){
         systemProperty'browser',"${browser}"
@@ -46,19 +46,6 @@ def registerTask(String taskName,String suitePath){
     }
 }
 
-test {
-    useRegression()
-    if (project.hasProperty("browser")){
-        systemProperty'browser',"${browser}"
-    }
-}
-task regression(type:Test) {
-    useRegression() {
-        suites 'src/test/resources/regression.xml'
-    }
-    if (project.hasProperty("browser")) {
-        systemProperty 'browser', "${browser}"
-    }
-}
+
 registerTask('quick','src/test/resources/testng.xml')
 registerTask('regression','src/test/resources/regression.xml')
