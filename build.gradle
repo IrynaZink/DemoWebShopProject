@@ -44,6 +44,11 @@ def registerTask(String taskName,String suitePath){
             systemProperty'browser',"${browser}"
         }
     }
+    tasks.register('regression', Test) {
+        useTestNG() {
+            suites 'src/test/resources/regression.xml'
+        }
+    }
 }
 
 

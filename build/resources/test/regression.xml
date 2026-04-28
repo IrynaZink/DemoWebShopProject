@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Regression" verbose="1">
+    <test name="Positive">
+        <classes>
+            <class name="com.webshop.tests.CreateAccountTests"/>
+            <class name="com.webshop.tests.LoginTests"/>
+            <class name="com.webshop.tests.ItemTests"/>
+
+        </classes>
+    </test>
+</suite>
+        <!--В домашнем проекте создайте файл .xml с регрессионным пакетом, добавьте в build.gradle задачу
+        и запустите этот пакет через Jenkins
